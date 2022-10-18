@@ -130,10 +130,10 @@ public class DvdLibraryController {
                         editDirectorName(title);
                         break;
                     case 4:
-                        editUserRating(title);
+                        editStudioName(title);
                         break;
                     case 5:
-                        editStudioName(title);
+                        editUserRating(title);
                         break;
                     case 6:
                         keepGoing = false;
