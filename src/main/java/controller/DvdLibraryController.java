@@ -12,8 +12,10 @@ public class DvdLibraryController {
     private DvdLibraryView view;
     private DvdLibraryDao dao;
 
-    public DvdLibraryController(DvdLibraryView view, DvdLibraryDao dao) {
-        //Initialize View and Dao
+    public DvdLibraryController(DvdLibraryDao dao, DvdLibraryView view) {
+        //Initialize Dao and View
+        this.dao = dao;
+        this.view = view;
     }
 
     public void run() {
