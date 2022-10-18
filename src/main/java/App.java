@@ -5,16 +5,16 @@ import ui.DvdLibraryView;
 import ui.UserIO;
 import ui.UserIOConsoleImpl;
 
-/**
- *
- * @author salajrawi
- */
 public class App {
 
     public static void main(String[] args) {
-        /*
-        Instantiate the UserIO, DvdLibraryView,dvdLibraryDao,  DvdLibraryController class and call the run method
-         */
+        // Instantiate the UserIO, DvdLibraryView, DvdLibraryDao, and DvdLibraryController
+        UserIO myIo = new UserIOConsoleImpl();
+        DvdLibraryView myView = new DvdLibraryView(myIo);
+        DvdLibraryDao myDao = new DvdLibraryDaoFileImpl();
+        DvdLibraryController controller = new DvdLibraryController(myDao, myView);
 
+        // Call run method
+        controller.run();
     }
 }
