@@ -1,8 +1,7 @@
 package controller;
 
-import dao.DvdLibraryDaoException;
-import dao.DvdLibraryDaoFileImpl;
 import dao.DvdLibraryDao;
+import dao.DvdLibraryDaoException;
 import dto.Dvd;
 import ui.DvdLibraryView;
 import java.util.List;
@@ -27,7 +26,25 @@ public class DvdLibraryController {
                 menuSelection = getMenuSelection();
 
                 switch (menuSelection) {
-                    //Implement Switch case
+                    case 1:
+                        listDvds();
+                        break;
+                    case 2:
+                        createDvd();
+                        break;
+                    case 3:
+                        viewDvd();
+                        break;
+                    case 4:
+                        editDvd();
+                    case 5:
+                        removeDvd();
+                        break;
+                    case 6:
+                        keepGoing = false;
+                        break;
+                    default:
+                        unknownCommand();
                 }
 
             }
@@ -42,36 +59,51 @@ public class DvdLibraryController {
     }
 
     /*
-     Method in the Controller to orchestrate the creation of a new student. Our method will do the following:
+     Method in the Controller to orchestrate the creation of a new dvd.
+     Our method will do the following:
      Display the Create dvd banner
      Get all the dvd data from the user and create the new dvd object
      Store the new dvd object
     Display the Create dvd Success banner
      */
     private void createDvd() throws DvdLibraryDaoException {
-        // implement
+        view.displayCreateDvDBanner();
+        Dvd newDvd = view.getNewDvDInfo();
+        dao.addDvd(newDvd.getTitle(), newDvd);
+        view.displayCreateSuccessBanner();
     }
 
     /*
-     a method called listDvds that will get a list of all Dvd objects in
-    the system from the DAO and then hand that list to the view to display to the user.
+     A method called listDvds that will get a list of all Dvd objects
+     in the system from the DAO and then hand that list to the view
+     to display to the user.
      */
     private void listDvds() throws DvdLibraryDaoException {
-        //implement
+        view.displayDisplayAllBanner();
+        List<Dvd> dvdList = dao.getAllDvds();
+        view.displayDvdList(dvdList);
     }
 
     /*
-    This method asks the view to display the View dvd banner and get the titlr from the user
+    This method asks the view to display the View dvd banner
+    and get the title from the user
      */
     private void viewDvd() throws DvdLibraryDaoException {
-        //implement
+        view.displayDisplayDvdBanner();
+        String dvdTitle = view.getDvdTitleChoice();
+        Dvd dvd = dao.getDvd(dvdTitle);
+        view.displayDvd(dvd);
     }
 
     /*
-    This method will ask the view to display the Remove dvd banner and ask the user for the title of the dvd to be removed
+    This method will ask the view to display the Remove dvd banner
+    and ask the user for the title of the dvd to be removed
      */
     private void removeDvd() throws DvdLibraryDaoException {
-        //implement
+        view.displayRemoveDvdBanner();
+        String dvdTitle = view.getDvdTitleChoice();
+        Dvd removedDvd = dao.removeDvd(dvdTitle);
+        view.displayRemoveResult(removedDvd);
     }
 
     private void editDvd() throws DvdLibraryDaoException {
