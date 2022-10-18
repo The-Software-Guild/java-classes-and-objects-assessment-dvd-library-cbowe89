@@ -1,6 +1,4 @@
-package dto;
-
-import java.util.Date;
+package com.cbowe.dvdlibrary.dto;
 
 public class Dvd {
     private String dvdTitle;

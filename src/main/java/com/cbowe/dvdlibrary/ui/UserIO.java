@@ -1,4 +1,4 @@
-package ui;
+package com.cbowe.dvdlibrary.ui;
 
 public interface UserIO {
     void print(String msg);

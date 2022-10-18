@@ -1,4 +1,4 @@
-package dao;
+package com.cbowe.dvdlibrary.dao;
 
 public class DvdLibraryDaoException extends Exception {
     public DvdLibraryDaoException(String message) {

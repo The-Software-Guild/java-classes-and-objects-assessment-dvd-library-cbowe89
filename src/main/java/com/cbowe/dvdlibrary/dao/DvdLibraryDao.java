@@ -1,6 +1,6 @@
-package dao;
+package com.cbowe.dvdlibrary.dao;
 
-import dto.Dvd;
+import com.cbowe.dvdlibrary.dto.Dvd;
 import java.util.List;
 
 public interface DvdLibraryDao {

@@ -1,9 +1,9 @@
-package controller;
+package com.cbowe.dvdlibrary.controller;
 
-import dao.DvdLibraryDao;
-import dao.DvdLibraryDaoException;
-import dto.Dvd;
-import ui.DvdLibraryView;
+import com.cbowe.dvdlibrary.dao.DvdLibraryDao;
+import com.cbowe.dvdlibrary.dao.DvdLibraryDaoException;
+import com.cbowe.dvdlibrary.dto.Dvd;
+import com.cbowe.dvdlibrary.ui.DvdLibraryView;
 import java.util.List;
 
 public class DvdLibraryController {

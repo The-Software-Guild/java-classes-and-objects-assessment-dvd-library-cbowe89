@@ -1,6 +1,6 @@
-package ui;
+package com.cbowe.dvdlibrary.ui;
 
-import dto.Dvd;
+import com.cbowe.dvdlibrary.dto.Dvd;
 import java.util.List;
 
 public class DvdLibraryView {

@@ -1,4 +1,4 @@
-package ui;
+package com.cbowe.dvdlibrary.ui;
 
 import java.util.Scanner;
 
