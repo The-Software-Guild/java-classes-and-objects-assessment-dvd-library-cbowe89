@@ -104,7 +104,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      * string from the file and convert it into an object
      *
      * @param dvdAsText text representation of a Dvd object
-     * @return Dvd object created from text representation
+     * @return Dvd object created from String representation
      */
     private Dvd unmarshallDvd(String dvdAsText) {
         // Declare and initialize array of tokens which are
@@ -178,7 +178,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      * in the DVD_FILE.
      *
      * @param aDvd Dvd object to be marshalled
-     * @return Dvd object as text separated by DELIMITER
+     * @return Dvd object as String separated by DELIMITER
      */
     private String marshallDvd(Dvd aDvd) {
         // Declare string, initialize with title and DELIMITER
