@@ -56,6 +56,7 @@ public class DvdLibraryController {
                         break;
                     case 4:
                         editDvd();
+                        break;
                     case 5:
                         removeDvd();
                         break;
