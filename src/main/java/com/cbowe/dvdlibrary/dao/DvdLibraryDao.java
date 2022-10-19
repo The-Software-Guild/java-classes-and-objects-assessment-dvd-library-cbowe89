@@ -1,7 +1,13 @@
 package com.cbowe.dvdlibrary.dao;
 
-import com.cbowe.dvdlibrary.dto.Dvd; // Import Dvd class from dto package
+import com.cbowe.dvdlibrary.dto.Dvd;
 import java.util.List;
+
+/**
+ * The {@code DvdLibraryDao} interface defines methods that must be
+ * implemented by any class that will act as a DAO (data access object)
+ * in the application.
+ */
 
 public interface DvdLibraryDao {
     /**
@@ -14,7 +20,7 @@ public interface DvdLibraryDao {
      * @param dvd DVD to be added to the library
      * @return the DVD object previously associated with the given
      * title if it exists, null otherwise
-     * @throws DvdLibraryDaoException prints msg
+     * @throws DvdLibraryDaoException prints message
      */
     Dvd addDvd(String title, Dvd dvd) throws DvdLibraryDaoException;
 
@@ -22,7 +28,7 @@ public interface DvdLibraryDao {
      * Returns a List of all DVDs in the library.
      *
      * @return a List containing all DVDs in the library.
-     * @throws DvdLibraryDaoException prints msg
+     * @throws DvdLibraryDaoException prints message
      */
     List<Dvd> getAllDvds() throws DvdLibraryDaoException;
 
@@ -33,7 +39,7 @@ public interface DvdLibraryDao {
      * @param title title of the DVD to retrieve
      * @return the DVD object associated with the given title,
      * null if no such DVD exists
-     * @throws DvdLibraryDaoException prints msg
+     * @throws DvdLibraryDaoException prints message
      */
     Dvd getDvd(String title) throws DvdLibraryDaoException;
 
@@ -45,7 +51,7 @@ public interface DvdLibraryDao {
      * @param title title of DVD to be removed
      * @return DVD object that was removed or null if no DVD
      * was associated with the given title
-     * @throws DvdLibraryDaoException prints msg
+     * @throws DvdLibraryDaoException prints message
      */
     Dvd removeDvd(String title) throws DvdLibraryDaoException;
     /**
@@ -56,7 +62,7 @@ public interface DvdLibraryDao {
      * @param title title of DVD to be edited
      * @return DVD object that was edited or null if no DVD
      * was associated with the given title
-     * @throws DvdLibraryDaoException prints msg
+     * @throws DvdLibraryDaoException prints message
      */
     Dvd editReleaseDate(String title, String newReleaseDate) throws DvdLibraryDaoException;
 
@@ -69,7 +75,7 @@ public interface DvdLibraryDao {
      * @param newMpaaRating rating of DVD
      * @return DVD object that was edited or null if no DVD
      * was associated with the given title
-     * @throws DvdLibraryDaoException prints msg
+     * @throws DvdLibraryDaoException prints message
      */
     Dvd editMPAA(String title, String newMpaaRating) throws DvdLibraryDaoException;
 
@@ -82,7 +88,7 @@ public interface DvdLibraryDao {
      * @param newDirectorName name of film director
      * @return DVD object that was edited or null if no DVD
      * was associated with the given title
-     * @throws DvdLibraryDaoException prints msg
+     * @throws DvdLibraryDaoException prints message
      */
     Dvd editDirectorName(String title, String newDirectorName) throws DvdLibraryDaoException;
 
@@ -95,7 +101,7 @@ public interface DvdLibraryDao {
      * @param newUserRating user rating of DVD
      * @return DVD object that was edited or null if no DVD
      * was associated with the given title
-     * @throws DvdLibraryDaoException prints msg
+     * @throws DvdLibraryDaoException prints message
      */
     Dvd editUserRating(String title, String newUserRating) throws DvdLibraryDaoException;
 
@@ -108,7 +114,7 @@ public interface DvdLibraryDao {
      * @param newStudioName studio that released film
      * @return DVD object that was edited or null if no DVD
      * was associated with the give title
-     * @throws DvdLibraryDaoException prints msg
+     * @throws DvdLibraryDaoException prints message
      */
     Dvd editStudio(String title, String newStudioName) throws DvdLibraryDaoException;
 }

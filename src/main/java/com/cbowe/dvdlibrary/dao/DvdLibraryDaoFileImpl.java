@@ -1,13 +1,15 @@
-/**
- * DvdLibraryDaoFileImpl class is part of the dao package.
- */
-
 package com.cbowe.dvdlibrary.dao;
 
-// Import Dvd class from the dto package
 import com.cbowe.dvdlibrary.dto.Dvd;
 import java.io.*;
 import java.util.*;
+
+/**
+ * The {@code DvdLibraryDaoFileImpl} class implements the
+ * DvdLibraryDao interface. This class is responsible for
+ * retrieving data from a .txt file and storing data in
+ * a .txt file.
+ */
 
 public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
@@ -41,7 +43,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      * @param title with which DVD is to be associated
      * @param dvd DVD to be added to the library
      * @return new Dvd object
-     * @throws DvdLibraryDaoException if error occurs
+     * @throws DvdLibraryDaoException if an error occurs writing to the file
      */
     @Override
     public Dvd addDvd(String title, Dvd dvd) throws DvdLibraryDaoException {
@@ -61,11 +63,11 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      * by calling the values() method
      *
      * @return ArrayList of values from dvds HashMap
-     * @throws DvdLibraryDaoException if error occurs
+     * @throws DvdLibraryDaoException prints message
      */
     @Override
     public List<Dvd> getAllDvds() throws DvdLibraryDaoException {
-        loadDvdFile();
+        loadDvdFile(); // Load file into memory
         return new ArrayList<Dvd>(dvds.values());
     }
 
@@ -74,11 +76,11 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      *
      * @param title title of the DVD to retrieve
      * @return Dvd object associated with title
-     * @throws DvdLibraryDaoException if error occurs
+     * @throws DvdLibraryDaoException prints message
      */
     @Override
     public Dvd getDvd(String title) throws DvdLibraryDaoException {
-        loadDvdFile();
+        loadDvdFile(); // Load file into memory
         return dvds.get(title);
     }
 
@@ -87,72 +89,64 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      *
      * @param title title of DVD to be removed
      * @return removed Dvd object
-     * @throws DvdLibraryDaoException if error occurs
+     * @throws DvdLibraryDaoException prints message
      */
     @Override
     public Dvd removeDvd(String title) throws DvdLibraryDaoException{
-        loadDvdFile();
-        Dvd removedDvd = dvds.remove(title);
-        writeDvdFile();
+        loadDvdFile(); // Load file into memory
+        Dvd removedDvd = dvds.remove(title); // Remove Dvd from HashMap
+        writeDvdFile(); // Write to .txt file
         return removedDvd;
     }
 
-    /*
-    Method to unmarshall the object or read a line of
-    string from the line and convert it into an object
+    /**
+     * Method to unmarshall the object or read a line of
+     * string from the file and convert it into an object
+     *
+     * @param dvdAsText text representation of a Dvd object
+     * @return Dvd object created from text representation
      */
     private Dvd unmarshallDvd(String dvdAsText) {
-        // dvdAsText is expecting a line read in from our file.
-        // For example, it might look like this:
-        // Move Title::January 1, 2000::PG-13::John Doe::Studio Name::User Rating
-        //
-        // We then split that line on our DELIMITER - which we are using as ::
-        // leaving us with an array of Strings, stored in dvdTokens.
-        // Which should look like this:
-        //
-        // ____________________________________________________________________
-        // |           |               |     |        |           |           |
-        // |Movie Title|January 1, 2000|PG-13|John Doe|Studio Name|User Rating|
-        // |           |               |     |        |           |           |
-        // ____________________________________________________________________
-        //     [0]          [1]          [2]     [3]       [4]         [5]
+        // Declare and initialize array of tokens which are
+        // created from splitting string at the :: delimiter
         String[] dvdTokens = dvdAsText.split(DELIMITER);
 
-        // Given the pattern above, the DVD title is in index 0 of the array.
+        // Index 0 - title of Dvd object
         String title = dvdTokens[0];
 
-        // Which we can then use to create a new Dvd object to satisfy
-        // the requirements of the constructor.
+        // Create a new Dvd object to satisfy the requirements
+        // of the constructor
         Dvd dvdFromFile = new Dvd(title);
 
-        // However, there are 5 remaining tokens that need to be set into the
-        // new Dvd object. Do this manually by using the appropriate setters.
-
-        // Index 1 - releaseDate
+        // Index 1 - releaseDate of Dvd object
         dvdFromFile.setReleaseDate(dvdTokens[1]);
 
-        // Index 2 - mpaaRating
+        // Index 2 - mpaaRating of Dvd object
         dvdFromFile.setMPAA(dvdTokens[2]);
 
-        // Index 3 - directorName
+        // Index 3 - directorName of Dvd object
         dvdFromFile.setDirectorsName(dvdTokens[3]);
 
-        // Index 4 - studioName
+        // Index 4 - studioName of Dvd object
         dvdFromFile.setStudio(dvdTokens[4]);
 
-        // Index 5 - userRating
+        // Index 5 - userRating of Dvd object
         dvdFromFile.setUserRating(dvdTokens[5]);
 
-        // Return the Dvd object that was created.
+        // Return the Dvd object that was created
         return dvdFromFile;
     }
 
-    // Method to Load file DVD_FILE into memory
+    /**
+     * Method to Load file DVD_FILE into memory
+     *
+     * @throws DvdLibraryDaoException prints message
+     */
     private void loadDvdFile() throws DvdLibraryDaoException {
         Scanner scanner;
 
         try {
-            // Create Scanner for reading the file
+            // Scanner for reading the file
             scanner = new Scanner(new BufferedReader(new FileReader(DVD_FILE)));
         } catch (FileNotFoundException e) {
             throw new DvdLibraryDaoException("*** Could not load DVD data into memory.", e);
@@ -182,8 +176,6 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     /**
      * This method turns a Dvd object into a line of text to store
      * in the DVD_FILE.
-     * Memory object will be formatted like the following example:
-     * Title::January 1, 2000::PG::John Doe::Studio::User Rating
      *
      * @param aDvd Dvd object to be marshalled
      * @return Dvd object as text separated by DELIMITER
@@ -207,18 +199,11 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     }
 
     /**
-     * Writes all Dvds in the library out to a DVD_FILE. See loadDvdFile
-     * for file format.
+     * Writes all Dvds in the library out to a DVD_FILE.
      *
-     * @throws DvdLibraryDaoException if an error occurs writing to the file
+     * @throws DvdLibraryDaoException prints message
      */
     private void writeDvdFile() throws DvdLibraryDaoException {
-        // NOTE FOR APPRENTICES: We are not handling the IOException - but
-        // we are translating it to an application specific exception and
-        // then simple throwing it (i.e. 'reporting' it) to the code that
-        // called us.  It is the responsibility of the calling code to
-        // handle any errors that occur.
-        //implement
         PrintWriter out;
 
         try {
@@ -228,17 +213,15 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         }
 
         // Write out the Dvd objects to the DVD file.
-        // NOTE TO THE APPRENTICES: We could just grab the dvd map,
-        // get the Collection of Dvds and iterate over them, but we've
-        // already created a method that gets a List of Dvds, so
-        // we'll reuse it.
-        String dvdAsText;
+        String dvdAsText; // Declare variable to store String representation
+
         List<Dvd> dvdList = this.getAllDvds(); // List of all Dvd objects
+
         // Iterate through objects in dvdList
         for (Dvd currentDvd : dvdList) {
-            // Turn Dvd object into a String
+            // Get String representation of Dvd object, store in variable
             dvdAsText = marshallDvd(currentDvd);
-            // Write the Dvd object to the file
+            // Write the String representation of theDvd object to the file
             out.println(dvdAsText);
             // Force PrintWriter to write line to the file
             out.flush();
@@ -254,15 +237,15 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      * @param title title of DVD to be edited
      * @param newReleaseDate release date for Dvd
      * @return current Dvd object
-     * @throws DvdLibraryDaoException if an error occurs
+     * @throws DvdLibraryDaoException prints message
      */
     @Override
     public Dvd editReleaseDate(String title, String newReleaseDate) throws DvdLibraryDaoException {
-        loadDvdFile();
-        Dvd currentDVD = dvds.get(title);
-        currentDVD.setReleaseDate(newReleaseDate);
-        writeDvdFile();
-        return currentDVD;
+        loadDvdFile(); // Load file into memory
+        Dvd currentDVD = dvds.get(title); // Get currentDvd info from HashMap
+        currentDVD.setReleaseDate(newReleaseDate); // Call setter to set new release date
+        writeDvdFile(); // Write to .txt file
+        return currentDVD; // Return currentDvd object
     }
 
     /**
@@ -271,15 +254,15 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      * @param title title of DVD to be edited
      * @param newMpaaRating rating of DVD
      * @return current Dvd object
-     * @throws DvdLibraryDaoException if an error occurs
+     * @throws DvdLibraryDaoException prints message
      */
     @Override
     public Dvd editMPAA(String title, String newMpaaRating) throws DvdLibraryDaoException {
-        loadDvdFile();
-        Dvd currentDVD = dvds.get(title);
-        currentDVD.setMPAA(newMpaaRating);
-        writeDvdFile();
-        return currentDVD;
+        loadDvdFile(); // Load file into memory
+        Dvd currentDVD = dvds.get(title); // Get currentDvd info from HashMap
+        currentDVD.setMPAA(newMpaaRating); // Call setter to set new MPAA rating
+        writeDvdFile(); // Write to .txt file
+        return currentDVD; // Return currentDvd object
     }
 
     /**
@@ -288,15 +271,15 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      * @param title title of DVD to be edited
      * @param newDirectorName name of film director
      * @return current Dvd object
-     * @throws DvdLibraryDaoException if an error occurs
+     * @throws DvdLibraryDaoException prints message
      */
     @Override
     public Dvd editDirectorName(String title, String newDirectorName) throws DvdLibraryDaoException {
-        loadDvdFile();
-        Dvd currentDVD = dvds.get(title);
-        currentDVD.setDirectorsName(newDirectorName);
-        writeDvdFile();
-        return currentDVD;
+        loadDvdFile(); // Load file into memory
+        Dvd currentDVD = dvds.get(title); // Call setter to set new release date
+        currentDVD.setDirectorsName(newDirectorName); // Call setter to set new director name
+        writeDvdFile(); // Write to .txt file
+        return currentDVD; // Return currentDvd object
     }
 
     /**
@@ -305,15 +288,15 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      * @param title of DVD to be edited
      * @param newUserRating user rating of DVD
      * @return current Dvd object
-     * @throws DvdLibraryDaoException if an error occurs
+     * @throws DvdLibraryDaoException prints message
      */
     @Override
     public Dvd editUserRating(String title, String newUserRating) throws DvdLibraryDaoException {
-        loadDvdFile();
-        Dvd currentDVD = dvds.get(title);
-        currentDVD.setUserRating(newUserRating);
-        writeDvdFile();
-        return currentDVD;
+        loadDvdFile(); // Load file into memory
+        Dvd currentDVD = dvds.get(title); // Call setter to set new release date
+        currentDVD.setUserRating(newUserRating); // Call setter to set new user rating
+        writeDvdFile(); // Write to .txt file
+        return currentDVD; // Return currentDvd object
     }
 
     /**
@@ -322,15 +305,15 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
      * @param title of DVD to be edited
      * @param newStudioName studio that released film
      * @return current Dvd object
-     * @throws DvdLibraryDaoException if an error occurs
+     * @throws DvdLibraryDaoException prints message
      */
     @Override
     public Dvd editStudio(String title, String newStudioName) throws DvdLibraryDaoException {
-        loadDvdFile();
-        Dvd currentDVD = dvds.get(title);
-        currentDVD.setStudio(newStudioName);
-        writeDvdFile();
-        return currentDVD;
+        loadDvdFile(); // Load file into memory
+        Dvd currentDVD = dvds.get(title); // Call setter to set new release date
+        currentDVD.setStudio(newStudioName); // Call setter to set new studio name
+        writeDvdFile(); // Write to .txt file
+        return currentDVD; // Return currentDvd object
     }
 
 }
