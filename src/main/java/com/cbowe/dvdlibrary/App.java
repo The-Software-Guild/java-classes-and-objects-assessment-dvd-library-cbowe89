@@ -1,11 +1,8 @@
 package com.cbowe.dvdlibrary;
 
-// Import DvdLibraryController class from controller package
 import com.cbowe.dvdlibrary.controller.DvdLibraryController;
-// Import DvdLibraryDao and DvdLibraryDaoFileImpl classes from dao package
 import com.cbowe.dvdlibrary.dao.DvdLibraryDao;
 import com.cbowe.dvdlibrary.dao.DvdLibraryDaoFileImpl;
-// Import DvdLibraryView, UserIO, and UserIOConsoleImpl classes from ui package
 import com.cbowe.dvdlibrary.ui.DvdLibraryView;
 import com.cbowe.dvdlibrary.ui.UserIO;
 import com.cbowe.dvdlibrary.ui.UserIOConsoleImpl;
