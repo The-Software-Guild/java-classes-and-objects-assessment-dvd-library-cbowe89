@@ -78,7 +78,7 @@ public class DvdLibraryController {
      * Private controller method. Called in the run() method
      * to print menu, prompt for and get user selection.
      *
-     * @return prints menu, prompt for and gets user input
+     * @return menu selection
      */
     private int getMenuSelection() {
         // Call to printMenuAndGetSelection() from the
