@@ -1,1 +1,6 @@
 Nightmare Before Christmas::October 29, 1993::PG::Henry Selick::Touchstone Pictures::Holiday Favorite
+Test Movie 2::May 1, 1995::PG::Jane Doe::Another Studio::Cartoon Comedy
+Deadpool::February 12, 2016::R::Tim Miller::20th Century Fox::Great Action/Comedy
+Test Movie 3::June 1, 2008::PG-13::JJ::Studio 2::Suspense
+Test Movie 1::January 1, 2000::R::John Doe::A Studio::Drama
+Happy Gilmore::February 16, 1996::PG-13::Dennis Dugan::Universal Pictures::Great Comedy
