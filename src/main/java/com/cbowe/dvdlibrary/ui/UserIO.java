@@ -1,5 +1,10 @@
 package com.cbowe.dvdlibrary.ui;
 
+/**
+ * The {@code UserIO} interface defines methods that must be
+ * implemented by any class that will act as UI in the application.
+ */
+
 public interface UserIO {
     void print(String msg);
 
